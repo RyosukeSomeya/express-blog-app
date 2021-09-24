@@ -1,0 +1,22 @@
+{
+  "name": "express-on-docker",
+  "version": "1.0.0",
+  "description": "Express and MySQL env on docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyosukeSomeya/express-mysql-env-on-docker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyosukeSomeya/express-mysql-env-on-docker/issues"
+  },
+  "homepage": "https://github.com/RyosukeSomeya/express-mysql-env-on-docker#readme",
+  "dependencies": {
+    "express-generator": "^4.16.1"
+  }
+}

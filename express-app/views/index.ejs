@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>Data</p>
+    <ul>
+      <% db_datas.forEach((db_data, key) => { %>
+        <li><%= key %>: <%= db_data.sample_data %></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
