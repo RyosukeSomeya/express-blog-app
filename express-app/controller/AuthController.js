@@ -1,6 +1,5 @@
 const views = '../views/'
 const { validationResult } = require('express-validator');
-const passport = require('passport'); // 認証
 
 module.exports = {
   showLoginPage: (req, res, next) => {
