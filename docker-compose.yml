@@ -12,7 +12,7 @@ services:
     image: mysql:5.7
     volumes:
       - db-volume:/var/lib/mysql
-      - ./initdb.d:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       MYSQL_DATABASE: sample_db
       MYSQL_ROOT_PASSWORD: password
