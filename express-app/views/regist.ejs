@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title><%- pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <header>
+      <h1 class="site-title">Express Sample</h1>
+      <div class="menu">
+        <a class="menu-item" href="/">Login</a>
+      </div>
+    </header>
+    <% if (messages) { %>
+      <ul class="error-messages">
+        <% for (var message of messages) { %>
+        <li class="error-messages-items"><%- message %></li>
+        <% } %>
+      </ul>
+    <% } %>
+    <main class="form-container">
+      <h2 class="page-title"><%- pageTitle %></h2>
+      <%- include("./partial/_form.ejs") %>
+    </main>
+  </body>
+</html>

@@ -6,10 +6,13 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <%- include("./partial/_header") %>
+    <%- include("../partial/_header") %>
     <main class="form-container">
       <h2 class="page-title"><%- pageTitle %></h2>
-      <%- include("./partial/_form") %>
+      <div class="user-detail">
+        <h3 class="user-detail-heading">Dashboard</h3>
+        <p class="user-detail-name">ログイン中:<%- userName %></p>
+      </div>
     </main>
   </body>
 </html>
