@@ -3,7 +3,7 @@
     "username": "root",
     "password": "password",
     "database": "blog_db_dev",
-    "host": "127.0.0.1",
+    "host": "db",
     "dialect": "mysql"
   },
   "test": {
@@ -15,8 +15,8 @@
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
+    "password": "password",
+    "database": "blog_db_dev",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

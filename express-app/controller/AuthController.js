@@ -8,7 +8,7 @@ module.exports = {
       isLoggedIn: false,
       pageTitle: 'Log in',
       btnText: "Log in",
-      actionPath: '#'
+      actionPath: '/'
     };
     res.render(views + 'index.ejs', data);
   },
