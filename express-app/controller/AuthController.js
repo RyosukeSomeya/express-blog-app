@@ -1,5 +1,6 @@
 const views = '../views/'
 const { validationResult } = require('express-validator');
+const passport = require('passport'); // 認証
 
 module.exports = {
   showLoginPage: (req, res, next) => {
@@ -25,7 +26,9 @@ module.exports = {
   },
   registUser: (req, res, next) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
+      // 入力に不備がある際の処理
       let messages = [];
       errors.errors.forEach((error) => {
         messages.push(error.msg);
@@ -40,6 +43,8 @@ module.exports = {
       };
       res.render(views + 'regist.ejs', data);
     } else {
+      // 認証処理
+
       const data = {
         isLoggedIn: true,
         userName: req.body.name,
