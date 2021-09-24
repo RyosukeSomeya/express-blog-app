@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/RyosukeSomeya/express-mysql-env-on-docker#readme",
   "dependencies": {
-    "express-generator": "^4.16.1"
+    "express-generator": "^4.16.1",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5"
   }
 }
