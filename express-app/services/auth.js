@@ -9,33 +9,33 @@ passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 }, (email, password, done) => {
-    // DBからメールアドレスでユーザを取得
-    User.findOne({
-      where: {
-          email: email
-      }
-    })
-    .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        return done(null, user); // ログイン成功時
-      } else {
-        // パスワード不一致の場合
-        return done(null, false, { message: "パスワードが一致しません" });
-      }
-    })
-    .catch(error => {
-        return done(null, false, {message: err.toString()});
-    })
+  // DBからメールアドレスでユーザを取得
+  User.findOne({
+    where: {
+      email: email
+    }
+  })
+  .then(user => {
+    if (user && bcrypt.compareSync(password, user.password)) {
+      return done(null, user); // ログイン成功時
+    } else {
+      // パスワード不一致の場合
+      return done(null, false, { message: "パスワードが一致しません" });
+    }
+  })
+  .catch(error => {
+    return done(null, false, {message: err.toString()});
+  })
 }));
 
 // session
 // ユーザーをシリアライズしてセッションに埋め込む
 passport.serializeUser((user, done) => {
-    done(null, user);
+  done(null, user);
 });
 // リクエストを受け取った時ユーザー特定する
 passport.deserializeUser((user, done) => {
-    done(null, user);
+  done(null, user);
 });
 
 module.exports = passport;
