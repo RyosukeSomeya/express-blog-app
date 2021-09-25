@@ -6,23 +6,25 @@ const LocalStrategy = require('passport-local').Strategy; // ID+パスワード�
 const User = require('../models').User;
 
 passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
+  usernameField: 'email',
+  passwordField: 'password'
 }, (email, password, done) => {
     // DBからメールアドレスでユーザを取得
     User.findOne({
-        where: {
-            email: email
-        }
+      where: {
+          email: email
+      }
     })
     .then(user => {
-        if (user && bcrypt.compareSync(password, user.password)) {
-            return done(null, user); // ログイン成功時
-        }
-        throw new Error();
+      if (user && bcrypt.compareSync(password, user.password)) {
+        return done(null, user); // ログイン成功時
+      } else {
+        // パスワード不一致の場合
+        return done(null, false, { message: "パスワードが一致しません" });
+      }
     })
     .catch(error => {
-        return done(null, false, { message: 'パスワードが違います' });
+        return done(null, false, {message: err.toString()});
     })
 }));
 

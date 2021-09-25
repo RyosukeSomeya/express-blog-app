@@ -1,14 +1,23 @@
 const views = '../views/'
 const { validationResult } = require('express-validator');
+const passport = require('../services/auth'); // node moduleではなく、auth.jsファイル
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   showLoginPage: (req, res, next) => {
+    let errorMessage = null
+    const flash = req.flash('error');
+    if (flash.length) {
+      errorMessage = flash;
+    }
+
     const data = {
       isRegister: false,
       isLoggedIn: false,
       pageTitle: 'Log in',
       btnText: "Log in",
-      actionPath: '/'
+      actionPath: '/',
+      messages: errorMessage
     };
     res.render(views + 'index.ejs', data);
   },
@@ -25,7 +34,6 @@ module.exports = {
   },
   registUser: (req, res, next) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       // 入力に不備がある際の処理
       let messages = [];
@@ -52,4 +60,11 @@ module.exports = {
       res.render('users/home', data);
     }
   },
+  loginUser: (req, res) => {
+    const user = req.user; // ログインに成功したら req.user にユーザー情報が格納される
+    console.log(user.name)
+    const token = jwt.sign(user.toJSON(), user.name); // JWT トークンを作成する
+    res.json({ token });
+  }
 }
+

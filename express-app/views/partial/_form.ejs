@@ -1,3 +1,10 @@
+<% if (messages) { %>
+  <ul class="error-messages">
+    <% for (var message of messages) { %>
+    <li class="error-messages-items"><%- message %></li>
+    <% } %>
+  </ul>
+<% } %>
 <form class="user-form" action="<%- actionPath %>" method="POST">
   <% if (isRegister) { %>
   <div class="form-field">

@@ -79,7 +79,7 @@ header {
 /* エラーメッセージ */
 .error-messages {
   width: 400px;
-  margin: 20px auto 0;
+  margin: 20px auto;
   padding: 16px 16px 16px 32px;
   background: #ffcad3;
   border: 1px solid #c44959;

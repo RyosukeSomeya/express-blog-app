@@ -12,13 +12,6 @@
         <a class="menu-item" href="/">Login</a>
       </div>
     </header>
-    <% if (messages) { %>
-      <ul class="error-messages">
-        <% for (var message of messages) { %>
-        <li class="error-messages-items"><%- message %></li>
-        <% } %>
-      </ul>
-    <% } %>
     <main class="form-container">
       <h2 class="page-title"><%- pageTitle %></h2>
       <%- include("./partial/_form.ejs") %>
