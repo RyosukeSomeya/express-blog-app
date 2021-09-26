@@ -62,13 +62,11 @@ module.exports = {
   },
   loginUser: (req, res) => {
     const user = req.user; // ログインに成功したら req.user にユーザー情報が格納される
-    console.log(user.name)
     const token = jwt.sign(user.toJSON(), 'secret'); // JWT トークンを作成する
-    // return res.json({data})
+
     res.cookie('token', token, {
-      maxAge: 3600,
-    });
-    res.redirect('/home');
+      maxAge: 60000,
+    }).redirect('/home');
   }
 }
 
