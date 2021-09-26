@@ -3,7 +3,13 @@ const isLoggedIn = require('../services/isLoggedIn');
 
 module.exports = {
   showMyPage: (req, res, next) => {
-    const userData = isLoggedIn(req.cookies.token);
+    const token = req.cookies.token;
+    let userData;
+
+    if (token !== null && token !== 'undefined') {
+      userData = isLoggedIn(req.cookies.token);
+    }
+
     if (userData) {
       const data = {
         isLoggedIn: true,

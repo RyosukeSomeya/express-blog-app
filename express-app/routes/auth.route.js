@@ -11,6 +11,7 @@ router.post('/', passport.authenticate('local', {
   failureFlash: true,
   badRequestMessage: '「メールアドレス」と「パスワード」は必須入力です。'
 }), authController.loginUser);
+router.get('/logout', authController.logoutUser)
 router.get('/register', authController.showRegisterPage);
 router.post('/register', userRegistValidator, authController.registUser);
 

@@ -10,6 +10,7 @@ passport.use(new LocalStrategy({
   passwordField: 'password'
 }, (email, password, done) => {
   // DBからメールアドレスでユーザを取得
+  console.log(email, password)
   User.findOne({
     where: {
       email: email
@@ -24,7 +25,7 @@ passport.use(new LocalStrategy({
     }
   })
   .catch(error => {
-    return done(null, false, {message: err.toString()});
+    return done(null, false, {message: error.toString()});
   })
 }));
 

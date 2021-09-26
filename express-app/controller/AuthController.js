@@ -1,6 +1,7 @@
 const views = '../views/'
 const { validationResult } = require('express-validator');
-const passport = require('../services/auth'); // node moduleではなく、auth.jsファイル
+const User = require('../models').User;
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -51,13 +52,29 @@ module.exports = {
       res.render(views + 'regist.ejs', data);
     } else {
       // 認証処理
-
-      const data = {
-        isLoggedIn: true,
-        userName: req.body.name,
-        pageTitle: 'User Home',
-      }
-      res.render('users/home', data);
+      User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8)),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).then(user => {
+        const token = jwt.sign(user.toJSON(), 'secret'); // JWT トークンを作成する
+        res.cookie('token', token, {
+          maxAge: 60000,
+        }).redirect('/home');
+      }).catch(error => {
+        const data = {
+          isRegister: true,
+          isLoggedIn: false,
+          pageTitle: 'Register',
+          btnText: 'Register',
+          actionPath: '/register',
+          actionPath: '/',
+          messages: error.message
+        };
+        res.render(views + 'index.ejs', data);
+      });
     }
   },
   loginUser: (req, res) => {
@@ -67,6 +84,11 @@ module.exports = {
     res.cookie('token', token, {
       maxAge: 60000,
     }).redirect('/home');
-  }
+  },
+  logoutUser: (req, res) => {
+    req.logout();
+    res.cookie('token');
+    res.redirect('/');
+  },
 }
 

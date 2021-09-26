@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const isLoggedIn = (token) => {
-  if (token) {
+  if (token !== "undefined") {
     const userData = jwt.verify(token, 'secret');
     return userData;
   } else {
