@@ -6,6 +6,10 @@ module.exports = {
     const token = req.cookies.token;
     let userData;
 
+    if (token === undefined || token === null) {
+      res.redirect('/');
+    }
+
     if (token !== null && token !== 'undefined') {
       userData = isLoggedIn(req.cookies.token);
     }
