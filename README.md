@@ -20,35 +20,9 @@ docker-compose build
 docker-compose up -d # バックグラウンド起動
 ```
 
-## DBのマイグレーションまで
-
-### MySQLコンテナでの作業
-
-#### 1. コンテナへ接続
-
-```:bash
-docker exec -it MySQLのコンテナ名 /bin/bash
-```
-
-#### 2. MySQLへ接続
-
-```:bash
-mysql -h db -P 3306 -u root -p
-```
-
-※プロンプトに従ってパスワードを入力
-
-#### 3. DB作成
-
-```:bash
-CREATE DATABASE blog_db_dev;
-
-SHOW DATABASES; # => blog_db_devが存在するDBの一覧にあればOK
-```
+## DBのマイグレーション
 
 ### Expressコンテナでの作業
-
-※ MySQLの作業を完了しておくこと。
 
 #### コンテナへ接続
 
@@ -66,12 +40,32 @@ npx sequelize-cli db:migrate
 
 ### その他
 
-#### 作成したユーザーの確認
+#### 作成したユーザーの確認など
 
-1. MySQLに接続
-2. 下記コマンドを順に実行
+1.MySQLコンテナにアタッチ
 
 ```:bash
-use blog_db_dev; # 使用するDBを選択
-select * from Users; # Usersテーブルの内容を表示
+docker exec -it MySQLのコンテナ名 /bin/bash
+```
+
+2.MySQLに接続
+
+```:bash
+mysql -h db -P 3306 -u root -p
+```
+
+このコマンドの後下記パスワード入力
+
+`password`
+
+3.使用するDBを選択
+
+```:bash
+use blog_db_dev;
+```
+
+4.Usersテーブルの内容を確認する
+
+```:bash
+select * from Users;
 ```
