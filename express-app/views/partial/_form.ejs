@@ -1,0 +1,37 @@
+<% if (messages) { %>
+  <ul class="error-messages">
+    <% for (var message of messages) { %>
+    <li class="error-messages-items"><%- message %></li>
+    <% } %>
+  </ul>
+<% } %>
+<form class="user-form" action="<%- actionPath %>" method="POST">
+  <% if (isRegister) { %>
+  <div class="form-field">
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name">
+  </div>
+  <% } %>
+  <div class="form-field">
+    <label for="email">E-Mail Address</label>
+    <input id="email" type="email" name="email">
+  </div>
+  <div class="form-field">
+    <label for="pasword">Password</label>
+    <input id="pasword" type="password" name="password">
+  </div>
+  <% if (isRegister) { %>
+  <div class="form-field">
+    <label for="confirm-password">Confirm Password</label>
+    <input id="confirm-password" type="password" name="confirmpassword">
+  </div>
+  <% } %>
+  <div class="form-field-left">
+    <div class="remember-me-field">
+        <input id="remember-me" type="checkbox">&nbsp;remember me
+    </div>
+  </div>
+  <div class="form-field button-center">
+    <button class="button button-primary" type="submit"><%- btnText %></button>
+    </div>
+</form>

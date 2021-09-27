@@ -12,9 +12,9 @@ services:
     image: mysql:5.7
     volumes:
       - db-volume:/var/lib/mysql
-      - ./initdb.d:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
-      MYSQL_DATABASE: sample_db
+      MYSQL_DATABASE: blog_db_dev
       MYSQL_ROOT_PASSWORD: password
       TZ: 'Asia/Tokyo'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

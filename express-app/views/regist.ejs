@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <%- include("./partial/_header") %>
+    <header>
+      <h1 class="site-title">Express Sample</h1>
+      <div class="menu">
+        <a class="menu-item" href="/">Login</a>
+      </div>
+    </header>
     <main class="form-container">
       <h2 class="page-title"><%- pageTitle %></h2>
-      <%- include("./partial/_form") %>
+      <%- include("./partial/_form.ejs") %>
     </main>
   </body>
 </html>
