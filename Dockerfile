@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 # DockerfileのあるディレクトリからWORKDIRへコピー
-COPY ./express-app/ .
+COPY ./blog-app/ .
 RUN chmod 755 ./start.sh
 EXPOSE 3000
 
