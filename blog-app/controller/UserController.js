@@ -1,4 +1,4 @@
-const views = '../views/users/';
+const views = '../views/user/';
 const isLoggedIn = require('../services/isLoggedIn');
 
 module.exports = {
