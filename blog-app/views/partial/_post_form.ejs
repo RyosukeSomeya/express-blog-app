@@ -1,1 +1,21 @@
-<h1>post form</h1>
+<% if (messages) { %>
+  <ul class="error-messages">
+    <% for (var message of messages) { %>
+    <li class="error-messages-items"><%- message %></li>
+    <% } %>
+  </ul>
+<% } %>
+<form class="post-form" action="<%- actionPath %>" method="<%- formMethod %>">
+  <div class="form-field-post">
+    <div class="input-heading"><label for="title">Post Title</label></div>
+    <div><input id="post-title" type="text" name="post-title"></div>
+  </div>
+  <div class="form-field-post">
+    <div class="input-heading"><label for="pasword">Post Content</label></div>
+    <div><textarea name="post-content" id="post-content" rows="10"></textarea></div>
+  </div>
+  <input type="hidden" name="user-id" value="<%- userData.id %>">
+  <div class="form-field button-center">
+    <button class="button button-primary" type="submit"><%- btnText %></button>
+    </div>
+</form>

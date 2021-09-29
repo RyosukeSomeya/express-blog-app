@@ -61,7 +61,7 @@ module.exports = {
       }).then(user => {
         const token = jwt.sign(user.toJSON(), 'secret'); // JWT トークンを作成する
         res.cookie('token', token, {
-          maxAge: 60000,
+          maxAge: 900000,
         }).redirect('/home');
       }).catch(error => {
         const data = {
@@ -82,7 +82,7 @@ module.exports = {
     const token = jwt.sign(user.toJSON(), 'secret'); // JWT トークンを作成する
 
     res.cookie('token', token, {
-      maxAge: 60000,
+      maxAge: 900000,
     }).redirect('/home');
   },
   logoutUser: (req, res) => {
