@@ -117,3 +117,12 @@ header {
 .user-detail-name {
   padding: 16px;
 }
+
+/* util */
+.inline-block {
+  display: inline-block;
+}
+
+.m-15 {
+  margin: 15px;
+}
