@@ -33,6 +33,7 @@ app.use(passport.session());
 app.use('/', router.auth);
 app.use('/register', router.auth);
 app.use('/home', router.user);
+app.use('/posts', router.post);
 app.use('/newpost', router.post);
 app.use('/editpost', router.post);
 

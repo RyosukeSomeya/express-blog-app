@@ -118,6 +118,31 @@ header {
   padding: 16px;
 }
 
+/* 投稿一覧 */
+.post-list {
+  list-style: none;
+}
+
+.post-title {
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #444;
+}
+.post-content {
+  margin-bottom: 8px;
+}
+.post-author {
+  text-align: right;
+}
+
+.post-list-item {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
 /* util */
 .inline-block {
   display: inline-block;

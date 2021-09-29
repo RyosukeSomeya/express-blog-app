@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title><%- pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <%- include("../partial/_header") %>
+    <main class="form-container">
+      <h2 class="page-title"><%- pageTitle %></h2>
+      <ul class="post-list">
+        <% posts.forEach((post) => { %>
+        <li class="post-list-item">
+          <p class="post-title"><%- post.title %></p>
+          <p class="post-content"><%- post.content %></p>
+          <p class="post-author">投稿者: <%- post.User.name %></p>
+        </li>
+        <% }); %>
+      </ul>
+    </main>
+  </body>
+</html>

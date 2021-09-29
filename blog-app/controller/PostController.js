@@ -5,6 +5,26 @@ const User = require('../models').User;
 const Post = require('../models').Post;
 
 module.exports = {
+  indexPosts: (req, res, next) => {
+    const user = isLoggedIn(req.cookies.token);
+    const posts = Post.findAll({
+      include: [{
+        model: User,
+        required: false
+      }]
+    });
+    posts.then((postsData) => {
+      const data = {
+        isLoggedIn: user ? true: false,
+        pageTitle: '投稿一覧',
+        posts: postsData
+      }
+      console.log(postsData)
+      res.render(views + 'index.ejs', data);
+    }).catch(error => {
+      res.render(views + 'index.ejs', data);
+    });
+  },
   newPost: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
     if (user) {
@@ -48,8 +68,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }).then(post => {
-        console.log('投稿完了')
-        res.redirect('/home');
+        res.redirect('/posts');
       }).catch(error => {
         const user = isLoggedIn(req.cookies.token);
         const data = {
