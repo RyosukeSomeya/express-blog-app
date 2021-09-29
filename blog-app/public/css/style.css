@@ -13,6 +13,18 @@ header {
   border-bottom: 1px solid #ccc;
 }
 
+.site-title a {
+  text-decoration: none;
+}
+
+.site-title a:hover {
+  text-decoration: underline;
+}
+
+.site-title a:visited {
+  color: #000;
+}
+
 .menu-item {
   display: inline-block;
   margin: 0 5px;
