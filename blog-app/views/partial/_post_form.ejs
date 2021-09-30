@@ -1,3 +1,13 @@
+<%
+  let postTitle = '';
+  let postContent = '';
+  let userId = userData.id;
+%>
+<% if (postData) {
+  postId = postData.id;
+  postTitle = postData.title;
+  postContent = postData.content;
+} %>
 <% if (messages) { %>
   <ul class="error-messages">
     <% for (var message of messages) { %>
@@ -8,13 +18,16 @@
 <form class="post-form" action="<%- actionPath %>" method="<%- formMethod %>">
   <div class="form-field-post">
     <div class="input-heading"><label for="title">Post Title</label></div>
-    <div><input id="title" type="text" name="title"></div>
+    <div><input id="title" type="text" name="title" value="<%- postTitle %>"></div>
   </div>
   <div class="form-field-post">
     <div class="input-heading"><label for="content">Post Content</label></div>
-    <div><textarea name="content" id="content" rows="10"></textarea></div>
+    <div><textarea name="content" id="content" rows="10"><%- postContent %></textarea></div>
   </div>
-  <input type="hidden" name="userid" value="<%- userData.id %>">
+  <% if (postData) { %>
+  <input type="hidden" name="postid" value="<%- postId %>">
+  <% } %>
+  <input type="hidden" name="userid" value="<%- userId %>">
   <div class="form-field button-center">
     <button class="button button-primary" type="submit"><%- btnText %></button>
     </div>

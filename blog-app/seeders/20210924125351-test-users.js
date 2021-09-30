@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         name: '山田花子',
-        email: 'saburo@example.com',
+        email: 'hanako@example.com',
         password: bcrypt.hashSync('secret', bcrypt.genSaltSync(8)),
         createdAt: now,
         updatedAt: now

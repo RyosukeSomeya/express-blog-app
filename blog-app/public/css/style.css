@@ -160,6 +160,14 @@ header {
   display: inline-block;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .m-15 {
   margin: 15px;
+}
+
+.mt-10 {
+  margin-top: 10px;
 }
