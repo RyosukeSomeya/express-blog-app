@@ -22,10 +22,12 @@
           <p class="post-title"><%- post.title %></p>
           <p class="post-content"><%- post.content %></p>
           <p class="post-author">投稿者: <%- post.User.name %></p>
-          <% if (post.User.id === userData.id) { %>
-          <div class="text-right mt-10">
-            <a class="button button-primary inline-block" href="/editpost/<%- post.id %>">編集</a>
-          </div>
+          <% if (isLoggedIn) { %>
+            <% if (post.User.id === userData.id) { %>
+            <div class="text-right mt-10">
+              <a class="button button-primary inline-block" href="/editpost/<%- post.id %>">編集</a>
+            </div>
+            <% }; %>
           <% }; %>
         </li>
         <% }); %>
