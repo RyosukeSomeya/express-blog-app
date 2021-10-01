@@ -5,5 +5,5 @@ const post = require('./post.route');
 module.exports = {
   auth,
   user,
-  post
-}
+  post,
+};

@@ -18,7 +18,7 @@ module.exports = {
       const data = {
         isLoggedIn: true,
         pageTitle: 'UserHome',
-        userData: userData
+        userData: userData,
       };
 
       res.render(views + 'home.ejs', data);
@@ -26,5 +26,4 @@ module.exports = {
       res.redirect('/');
     }
   },
-}
-
+};

@@ -8,33 +8,35 @@ module.exports = {
   indexPosts: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
     const posts = Post.findAll({
-      order: [
-        ['id', 'DESC']
+      order: [['id', 'DESC']],
+      include: [
+        {
+          model: User,
+          required: false,
+        },
       ],
-      include: [{
-        model: User,
-        required: false
-      }]
     });
-    posts.then((postsData) => {
-      const data = {
-        isLoggedIn: user ? true: false,
-        userData: user ? user: null,
-        pageTitle: '投稿一覧',
-        posts: postsData,
-        messages: null
-      }
-      res.render(views + 'index.ejs', data);
-    }).catch(error => {
-      const data = {
-        isLoggedIn: user ? true: false,
-        userData: user ? user: null,
-        pageTitle: '投稿一覧',
-        posts: null,
-        messages: error
-      }
-      res.render(views + 'index.ejs', data);
-    });
+    posts
+      .then((postsData) => {
+        const data = {
+          isLoggedIn: user ? true : false,
+          userData: user ? user : null,
+          pageTitle: '投稿一覧',
+          posts: postsData,
+          messages: null,
+        };
+        res.render(views + 'index.ejs', data);
+      })
+      .catch((error) => {
+        const data = {
+          isLoggedIn: user ? true : false,
+          userData: user ? user : null,
+          pageTitle: '投稿一覧',
+          posts: null,
+          messages: error,
+        };
+        res.render(views + 'index.ejs', data);
+      });
   },
   newPost: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
@@ -47,8 +49,8 @@ module.exports = {
         userData: user,
         postData: null,
         btnText: '投稿',
-        messages: null
-      }
+        messages: null,
+      };
       res.render(views + 'new.ejs', data);
     } else {
       res.redirect('/');
@@ -69,7 +71,7 @@ module.exports = {
         actionPath: '/createpost',
         userData: user,
         btnText: '投稿',
-        messages: messages
+        messages: messages,
       };
       res.render(views + 'new.ejs', data);
     } else {
@@ -78,22 +80,24 @@ module.exports = {
         content: req.body.content,
         userId: req.body.userid,
         createdAt: new Date(),
-        updatedAt: new Date()
-      }).then(post => {
-        res.redirect('/posts');
-      }).catch(error => {
-        const user = isLoggedIn(req.cookies.token);
-        const data = {
-          isLoggedIn: true,
-          pageTitle: '新規投稿',
-          formMethod: 'POST',
-          actionPath: '/createpost',
-          userData: user,
-          btnText: '投稿',
-          messages: error.messages
-        };
-        res.render(views + 'new.ejs', data);
-      });
+        updatedAt: new Date(),
+      })
+        .then((post) => {
+          res.redirect('/posts');
+        })
+        .catch((error) => {
+          const user = isLoggedIn(req.cookies.token);
+          const data = {
+            isLoggedIn: true,
+            pageTitle: '新規投稿',
+            formMethod: 'POST',
+            actionPath: '/createpost',
+            userData: user,
+            btnText: '投稿',
+            messages: error.messages,
+          };
+          res.render(views + 'new.ejs', data);
+        });
     }
   },
   editPost: (req, res, next) => {
@@ -101,42 +105,46 @@ module.exports = {
     if (user) {
       const post = Post.findOne({
         where: {
-          id: req.params.id
+          id: req.params.id,
         },
-        include: [{
-          model: User,
-          required: false
-        }]
+        include: [
+          {
+            model: User,
+            required: false,
+          },
+        ],
       });
 
-      post.then((postData) => {
-        const data = {
-          isLoggedIn: true,
-          pageTitle: '投稿の編集',
-          actionPath: `/updatepost/${postData.id}`,
-          formMethod: 'POST',
-          userData: postData.User.id,
-          postData: postData,
-          btnText: '更新',
-          messages: null
-        }
-        res.render(views + 'edit.ejs', data);
-      }).catch(error => {
-        const data = {
-          isLoggedIn: user ? true: false,
-          pageTitle: '投稿一覧',
-          posts: null,
-          messages: error
-        }
-        res.render(views + 'index.ejs', data);
-      });
+      post
+        .then((postData) => {
+          const data = {
+            isLoggedIn: true,
+            pageTitle: '投稿の編集',
+            actionPath: `/updatepost/${postData.id}`,
+            formMethod: 'POST',
+            userData: postData.User.id,
+            postData: postData,
+            btnText: '更新',
+            messages: null,
+          };
+          res.render(views + 'edit.ejs', data);
+        })
+        .catch((error) => {
+          const data = {
+            isLoggedIn: user ? true : false,
+            pageTitle: '投稿一覧',
+            posts: null,
+            messages: error,
+          };
+          res.render(views + 'index.ejs', data);
+        });
     } else {
       res.redirect('/');
     }
   },
   updatePost: (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body.postid)
+    console.log(req.body.postid);
     if (!errors.isEmpty()) {
       let messages = [];
       errors.errors.forEach((error) => {
@@ -152,10 +160,10 @@ module.exports = {
         postData: {
           title: req.body.title,
           content: req.body.content,
-          userId: req.params.userid
+          userId: req.params.userid,
         },
         btnText: '更新',
-        messages: messages
+        messages: messages,
       };
       res.render(views + 'new.ejs', data);
     } else {
@@ -165,40 +173,39 @@ module.exports = {
           {
             title: req.body.title,
             content: req.body.content,
-            userId: req.params.userid
+            userId: req.params.userid,
           },
           {
             where: {
-              id: req.body.postid
-            }
+              id: req.body.postid,
+            },
           }
         );
 
-        post.then(post => {
-          res.redirect('/posts');
-        }).catch(error => {
-          const user = isLoggedIn(req.cookies.token);
-          const data = {
-            isLoggedIn: true,
-            pageTitle: '投稿の編集',
-            actionPath: `/updatepost/${req.body.postid}`,
-            formMethod: 'POST',
-            userData: user.id,
-            postData: {
-              title: req.body.title,
-              content: req.body.content,
-              userId: req.params.userid
-            },
-            btnText: '更新',
-            messages: [error]
-          };
-          res.render(views + 'edit.ejs', data);
-        });
+        post
+          .then((post) => {
+            res.redirect('/posts');
+          })
+          .catch((error) => {
+            const user = isLoggedIn(req.cookies.token);
+            const data = {
+              isLoggedIn: true,
+              pageTitle: '投稿の編集',
+              actionPath: `/updatepost/${req.body.postid}`,
+              formMethod: 'POST',
+              userData: user.id,
+              postData: {
+                title: req.body.title,
+                content: req.body.content,
+                userId: req.params.userid,
+              },
+              btnText: '更新',
+              messages: [error],
+            };
+            res.render(views + 'edit.ejs', data);
+          });
       }
     }
   },
-  deletePost: (req, res, next) => {
-
-  },
-}
-
+  deletePost: (req, res, next) => {},
+};

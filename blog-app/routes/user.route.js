@@ -1,4 +1,4 @@
-const router = require('./auth.route')
+const router = require('./auth.route');
 const userController = require('../controller/UserController');
 
 router.get('/home', userController.showMyPage);

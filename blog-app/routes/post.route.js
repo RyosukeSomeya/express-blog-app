@@ -1,4 +1,4 @@
-const router = require('./auth.route')
+const router = require('./auth.route');
 const postController = require('../controller/PostController');
 const postValidator = require('../middleware/postValidator');
 
