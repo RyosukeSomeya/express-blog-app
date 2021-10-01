@@ -7,7 +7,6 @@ router.get('/newpost', postController.newPost);
 router.post('/createpost', postValidator, postController.createPost);
 // 記事IDをパラメータとして取るようにする
 router.get('/editpost/:id', postController.editPost);
-router.post('/updatepost', postValidator, postController.updatePost);
-router.delete('/updatepost', postController.deletePost);
+router.put('/updatepost/:id', postValidator, postController.updatePost);
 
 module.exports = router;

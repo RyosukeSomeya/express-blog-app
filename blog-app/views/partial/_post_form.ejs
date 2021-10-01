@@ -27,6 +27,9 @@
   <% if (postData) { %>
   <input type="hidden" name="postid" value="<%- postId %>">
   <% } %>
+  <% if (actionPath.indexOf('update') !== -1) { %>
+  <input type="hidden" name="_method" value="put">
+  <% } %>
   <input type="hidden" name="userid" value="<%- userId %>">
   <div class="form-field button-center">
     <button class="button button-primary" type="submit"><%- btnText %></button>

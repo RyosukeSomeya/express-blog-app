@@ -113,7 +113,7 @@ module.exports = {
         const data = {
           isLoggedIn: true,
           pageTitle: '投稿の編集',
-          actionPath: '/updatePost',
+          actionPath: `/updatepost/${postData.id}`,
           formMethod: 'POST',
           userData: postData.User.id,
           postData: postData,
@@ -136,26 +136,26 @@ module.exports = {
   },
   updatePost: (req, res, next) => {
     const errors = validationResult(req);
+    console.log(req.body.postid)
     if (!errors.isEmpty()) {
       let messages = [];
       errors.errors.forEach((error) => {
         messages.push(error.msg);
       });
       const user = isLoggedIn(req.cookies.token);
-      const postData = {
-        title: req.body.title,
-        content: req.body.content,
-        userId: req.params.userid
-      }
       const data = {
         isLoggedIn: true,
-          pageTitle: '投稿の編集',
-          actionPath: '/updatePost',
-          formMethod: 'POST',
-          userData: user.id,
-          postData: postData,
-          btnText: '更新',
-          messages: messages
+        pageTitle: '投稿の編集',
+        actionPath: `/updatepost/${req.body.postid}`,
+        formMethod: 'POST',
+        userData: user.id,
+        postData: {
+          title: req.body.title,
+          content: req.body.content,
+          userId: req.params.userid
+        },
+        btnText: '更新',
+        messages: messages
       };
       res.render(views + 'new.ejs', data);
     } else {
@@ -175,22 +175,20 @@ module.exports = {
         );
 
         post.then(post => {
-          console.log('updated', post)
           res.redirect('/posts');
         }).catch(error => {
           const user = isLoggedIn(req.cookies.token);
-          const postData = {
-            title: req.body.title,
-            content: req.body.content,
-            userId: req.params.userid
-          }
           const data = {
             isLoggedIn: true,
             pageTitle: '投稿の編集',
-            actionPath: '/updatePost',
+            actionPath: `/updatepost/${req.body.postid}`,
             formMethod: 'POST',
             userData: user.id,
-            postData: postData,
+            postData: {
+              title: req.body.title,
+              content: req.body.content,
+              userId: req.params.userid
+            },
             btnText: '更新',
             messages: [error]
           };

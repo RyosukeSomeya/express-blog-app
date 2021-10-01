@@ -6,6 +6,8 @@ const logger = require('morgan');
 const passport = require('./services/auth'); // node moduleではなく、auth.jsファイル
 const session = require('express-session');
 const flash = require('connect-flash');
+const connect = require('connect');
+const methodOverride = require('method-override');
 
 const router = require('./routes/index');
 
@@ -29,6 +31,14 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    const method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}));
 
 app.use('/', router.auth);
 app.use('/register', router.auth);
