@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title><%- pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <%- include("../partial/_header") %>
+    <main class="form-container">
+      <h2 class="page-title"><%- pageTitle %></h2>
+      <% if (messages) { %>
+        <ul class="error-messages">
+          <% for (var message of messages) { %>
+          <li class="error-messages-items"><%- message %></li>
+          <% } %>
+        </ul>
+      <% } %>
+      <ul class="post-list">
+        <% posts.forEach((post) => { %>
+        <li class="post-list-item">
+          <p class="post-title"><%- post.title %></p>
+          <p class="post-content"><%- post.content %></p>
+          <p class="post-author">投稿者: <%- post.User.name %></p>
+          <% if (isLoggedIn) { %>
+            <% if (post.User.id === userData.id) { %>
+            <div class="text-right mt-10">
+              <a class="button button-primary inline-block" href="/editpost/<%- post.id %>">編集</a>
+            </div>
+            <% }; %>
+          <% }; %>
+        </li>
+        <% }); %>
+      </ul>
+    </main>
+  </body>
+</html>

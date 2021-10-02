@@ -1,0 +1,37 @@
+<%
+  let postTitle = '';
+  let postContent = '';
+  let userId = userData.id;
+%>
+<% if (postData) {
+  postId = postData.id;
+  postTitle = postData.title;
+  postContent = postData.content;
+} %>
+<% if (messages) { %>
+  <ul class="error-messages">
+    <% for (var message of messages) { %>
+    <li class="error-messages-items"><%- message %></li>
+    <% } %>
+  </ul>
+<% } %>
+<form class="post-form" action="<%- actionPath %>" method="<%- formMethod %>">
+  <div class="form-field-post">
+    <div class="input-heading"><label for="title">Post Title</label></div>
+    <div><input id="title" type="text" name="title" value="<%- postTitle %>"></div>
+  </div>
+  <div class="form-field-post">
+    <div class="input-heading"><label for="content">Post Content</label></div>
+    <div><textarea name="content" id="content" rows="10"><%- postContent %></textarea></div>
+  </div>
+  <% if (postData) { %>
+  <input type="hidden" name="postid" value="<%- postId %>">
+  <% } %>
+  <% if (actionPath.indexOf('update') !== -1) { %>
+  <input type="hidden" name="_method" value="put">
+  <% } %>
+  <input type="hidden" name="userid" value="<%- userId %>">
+  <div class="form-field button-center">
+    <button class="button button-primary" type="submit"><%- btnText %></button>
+    </div>
+</form>

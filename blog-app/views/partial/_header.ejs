@@ -1,0 +1,14 @@
+<header>
+  <h1 class="site-title"><a href="/posts">Express Blog</a></h1>
+  <div class="menu">
+    <a class="menu-item" href="/posts">投稿一覧</a>
+    <% if (isLoggedIn) { %>
+    <a class="menu-item" href="/newpost">新規投稿</a>
+    <a class="menu-item" href="/home">マイページ</a>
+    <a class="menu-item" href="/logout">Logout</a>
+    <% } else { %>
+    <a class="menu-item" href="/">Login</a>
+    <a class="menu-item" href="/register">Register</a>
+    <% } %>
+  </div>
+</header>
