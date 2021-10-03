@@ -8,17 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      post_id: {
+      postId: {
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }

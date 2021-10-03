@@ -14,6 +14,11 @@ module.exports = {
           model: User,
           required: false,
         },
+        {
+          model: User,
+          as: 'likes',
+          required: false,
+        },
       ],
     });
     posts
@@ -33,7 +38,7 @@ module.exports = {
           userData: user ? user : null,
           pageTitle: '投稿一覧',
           posts: null,
-          messages: error,
+          messages: [error],
         };
         res.render(views + 'index.ejs', data);
       });

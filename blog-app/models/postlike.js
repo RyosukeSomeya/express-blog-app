@@ -14,12 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   PostLike.init({
-    post_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER
+    postId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'PostLike',
-    underscored: true,
   });
   return PostLike;
 };
