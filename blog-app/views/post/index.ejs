@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title><%- pageTitle %></title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
   <body>
     <%- include("../partial/_header") %>
@@ -21,6 +22,8 @@
         <li class="post-list-item">
           <p class="post-title"><%- post.title %></p>
           <p class="post-content"><%- post.content %></p>
+          <p class=""><i class="fas fa-heart"></i></p>
+          <p class=""><i class="far fa-heart"></i></p>
           <p class="post-author">投稿者: <%- post.User.name %></p>
           <% if (isLoggedIn) { %>
             <% if (post.User.id === userData.id) { %>

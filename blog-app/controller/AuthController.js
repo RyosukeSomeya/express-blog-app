@@ -81,7 +81,7 @@ module.exports = {
         });
     }
   },
-  loginUser: (req, res) => {
+  loginUser: (req, res, next) => {
     const user = req.user; // ログインに成功したら req.user にユーザー情報が格納される
     const token = jwt.sign(user.toJSON(), 'secret'); // JWT トークンを作成する
 
@@ -91,7 +91,7 @@ module.exports = {
       })
       .redirect('/home');
   },
-  logoutUser: (req, res) => {
+  logoutUser: (req, res, next) => {
     req.logout();
     res.cookie('token');
     res.redirect('/');
