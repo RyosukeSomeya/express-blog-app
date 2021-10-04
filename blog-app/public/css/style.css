@@ -104,6 +104,12 @@ header {
 .button-center {
   justify-content: center;
 }
+.like-button {
+  background: none;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
+}
 
 /* エラーメッセージ */
 .error-messages {

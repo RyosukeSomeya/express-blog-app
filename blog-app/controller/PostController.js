@@ -3,10 +3,12 @@ const isLoggedIn = require('../services/isLoggedIn');
 const { validationResult } = require('express-validator');
 const User = require('../models').User;
 const Post = require('../models').Post;
+const PostLike = require('../models').PostLike;
 
 module.exports = {
   indexPosts: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
+    if (user) {
     const posts = Post.findAll({
       order: [['id', 'DESC']],
       include: [
@@ -42,6 +44,9 @@ module.exports = {
         };
         res.render(views + 'index.ejs', data);
       });
+    } else {
+      res.redirect('/');
+    }
   },
   newPost: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
@@ -213,4 +218,32 @@ module.exports = {
     }
   },
   deletePost: (req, res, next) => {},
+  likePost: (req, res, next) => {
+    const postLike = PostLike.findOne({
+      where: {
+        userId: req.body.userId,
+        postId: req.body.postId,
+      },
+    });
+    postLike.then((postlike) => {
+      if (postlike) {
+        // like削除
+        const deletedPost = postlike.destroy();
+        deletedPost.then((result) => {
+          next();
+        });
+      } else {
+        // like追加
+        PostLike.create({
+          userId: req.body.userId,
+          postId: req.body.postId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }).then(postlike => {
+          //
+          next();
+        });
+      }
+    })
+  },
 };
