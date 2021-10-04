@@ -1,5 +1,6 @@
 const views = '../views/post/';
 const isLoggedIn = require('../services/isLoggedIn');
+const getPostLikes = require('../services/postlikes');
 const { validationResult } = require('express-validator');
 const User = require('../models').User;
 const Post = require('../models').Post;
@@ -217,32 +218,35 @@ module.exports = {
       }
     }
   },
-  deletePost: (req, res, next) => {},
-  likePost: (req, res, next) => {
-    const postLike = PostLike.findOne({
-      where: {
-        userId: req.body.userId,
-        postId: req.body.postId,
-      },
-    });
+  addlike: (req, res, next) => {
+    const postLike = getPostLikes(req.body.userId, req.body.postId);
     postLike.then((postlike) => {
       if (postlike) {
-        // like削除
-        const deletedPost = postlike.destroy();
-        deletedPost.then((result) => {
-          next();
-        });
+        next();
       } else {
-        // like追加
         PostLike.create({
           userId: req.body.userId,
           postId: req.body.postId,
           createdAt: new Date(),
           updatedAt: new Date()
-        }).then(postlike => {
+        }).then(() => {
           //
           next();
         });
+      }
+    })
+  },
+  deletelike: (req, res, next) => {
+    const postLike = getPostLikes(req.body.userId, req.body.postId);
+    postLike.then((postlike) => {
+      if (postlike) {
+        // like削除
+        const deletedPost = postlike.destroy();
+        deletedPost.then(() => {
+          next();
+        });
+      } else {
+        next();
       }
     })
   },

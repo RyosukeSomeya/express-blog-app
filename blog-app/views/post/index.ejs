@@ -28,13 +28,14 @@
             <% for (var i = 0; i < post.likes.length; i++) { %>
               <% post.likes[i].id === userData.id ? isUserlike = true : isUserlike = false; %>
             <% } %>
-            <form action="/likepost" method="post">
+            <form action="/likepost" method="POST">
               <input type="hidden" name="userId" value="<%- userData.id %>">
               <input type="hidden" name="postId" value="<%- post.id %>">
               <% if (isUserlike) { %>
-                <button type="submit" class="like-button"><i class="fas fa-heart"></i><%- likesCount %></button>
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="like-button"><i class="fas fa-heart"></i> <%- likesCount %></button>
               <% } else { %>
-                <button type="submit" class="like-button"><i class="far fa-heart"></i><%- likesCount %></button>
+                <button type="submit" class="like-button"><i class="far fa-heart"></i> <%- likesCount %></button>
               <% }; %>
             </form>
           <% }; %>
