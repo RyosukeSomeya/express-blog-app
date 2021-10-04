@@ -89,16 +89,23 @@ header {
 }
 
 .button {
+  margin-right: 5px;
   padding: 10px 24px;
   border: none;
   color: #fff;
   border-radius: 8px;
   font-size: 18px;
+  text-decoration: none;
   cursor: pointer;
 }
 
 .button.button-primary {
   background-color: #6495ed;
+}
+
+.button.button-danger {
+  text-decoration: none;
+  background-color: #bb326b;
 }
 
 .button-center {
@@ -164,6 +171,11 @@ header {
 /* util */
 .inline-block {
   display: inline-block;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .text-right {

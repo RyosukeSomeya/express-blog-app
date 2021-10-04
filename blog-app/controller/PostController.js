@@ -217,6 +217,19 @@ module.exports = {
       }
     }
   },
+  deletePost: (req, res, next) => {
+    const post = Post.findOne({
+      where: {
+        id: req.body.postId,
+      },
+    });
+
+    post.then((post) => {
+      post.destroy().then(() => {
+        next();
+      });
+    });
+  },
   addlike: (req, res, next) => {
     const postLike = getPostLikes(req.body.userId, req.body.postId);
     postLike.then((postlike) => {

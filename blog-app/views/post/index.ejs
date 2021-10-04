@@ -42,8 +42,13 @@
           <p class="post-author">投稿者: <%- post.User.name %></p>
           <% if (isLoggedIn) { %>
             <% if (post.User.id === userData.id) { %>
-            <div class="text-right mt-10">
+            <div class="text-right mt-10 d-flex">
               <a class="button button-primary inline-block" href="/editpost/<%- post.id %>">編集</a>
+              <form action="/deletepost" method="POST">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="postId" value="<%- post.id %>">
+                <button class="button button-danger" type="submit">削除</button>
+              </form>
             </div>
             <% }; %>
           <% }; %>
