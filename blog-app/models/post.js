@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'likes'
       });
     }
-  };
+  }
   Post.init({
     title: DataTypes.STRING,
     content: DataTypes.TEXT

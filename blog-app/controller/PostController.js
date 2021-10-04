@@ -155,7 +155,6 @@ module.exports = {
   },
   updatePost: (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body.postid);
     if (!errors.isEmpty()) {
       let messages = [];
       errors.errors.forEach((error) => {
