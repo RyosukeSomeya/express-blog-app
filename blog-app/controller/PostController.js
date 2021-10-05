@@ -1,17 +1,25 @@
 const views = '../views/post/';
 const isLoggedIn = require('../services/isLoggedIn');
+const getPostLikes = require('../services/postlikes');
 const { validationResult } = require('express-validator');
 const User = require('../models').User;
 const Post = require('../models').Post;
+const PostLike = require('../models').PostLike;
 
 module.exports = {
   indexPosts: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
+    if (user) {
     const posts = Post.findAll({
       order: [['id', 'DESC']],
       include: [
         {
           model: User,
+          required: false,
+        },
+        {
+          model: User,
+          as: 'likes',
           required: false,
         },
       ],
@@ -33,10 +41,13 @@ module.exports = {
           userData: user ? user : null,
           pageTitle: '投稿一覧',
           posts: null,
-          messages: error,
+          messages: [error],
         };
         res.render(views + 'index.ejs', data);
       });
+    } else {
+      res.redirect('/');
+    }
   },
   newPost: (req, res, next) => {
     const user = isLoggedIn(req.cookies.token);
@@ -144,7 +155,6 @@ module.exports = {
   },
   updatePost: (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body.postid);
     if (!errors.isEmpty()) {
       let messages = [];
       errors.errors.forEach((error) => {
@@ -207,5 +217,49 @@ module.exports = {
       }
     }
   },
-  deletePost: (req, res, next) => {},
+  deletePost: (req, res, next) => {
+    const post = Post.findOne({
+      where: {
+        id: req.body.postId,
+      },
+    });
+
+    post.then((post) => {
+      post.destroy().then(() => {
+        next();
+      });
+    });
+  },
+  addlike: (req, res, next) => {
+    const postLike = getPostLikes(req.body.userId, req.body.postId);
+    postLike.then((postlike) => {
+      if (postlike) {
+        next();
+      } else {
+        PostLike.create({
+          userId: req.body.userId,
+          postId: req.body.postId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }).then(() => {
+          //
+          next();
+        });
+      }
+    })
+  },
+  deletelike: (req, res, next) => {
+    const postLike = getPostLikes(req.body.userId, req.body.postId);
+    postLike.then((postlike) => {
+      if (postlike) {
+        // like削除
+        const deletedPost = postlike.destroy();
+        deletedPost.then(() => {
+          next();
+        });
+      } else {
+        next();
+      }
+    })
+  },
 };

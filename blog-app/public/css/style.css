@@ -89,11 +89,13 @@ header {
 }
 
 .button {
+  margin-right: 5px;
   padding: 10px 24px;
   border: none;
   color: #fff;
   border-radius: 8px;
   font-size: 18px;
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -101,8 +103,19 @@ header {
   background-color: #6495ed;
 }
 
+.button.button-danger {
+  text-decoration: none;
+  background-color: #bb326b;
+}
+
 .button-center {
   justify-content: center;
+}
+.like-button {
+  background: none;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* エラーメッセージ */
@@ -158,6 +171,11 @@ header {
 /* util */
 .inline-block {
   display: inline-block;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .text-right {

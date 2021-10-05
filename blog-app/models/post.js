@@ -13,8 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.User, {
         foreignKey: 'userId'
       });
+      Post.belongsToMany(models.User, {
+        through: models.PostLike,
+        foreignKey: 'postId',
+        otherKey: 'userId',
+        onDelete: 'cascade',
+        as: 'likes'
+      });
     }
-  };
+  }
   Post.init({
     title: DataTypes.STRING,
     content: DataTypes.TEXT

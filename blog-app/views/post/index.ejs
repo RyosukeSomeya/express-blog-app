@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title><%- pageTitle %></title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
   <body>
     <%- include("../partial/_header") %>
@@ -21,11 +22,33 @@
         <li class="post-list-item">
           <p class="post-title"><%- post.title %></p>
           <p class="post-content"><%- post.content %></p>
+          <% const likesCount = post.likes.length %>
+          <% let isUserlike = false %>
+          <% if (isLoggedIn) { %>
+            <% for (var i = 0; i < post.likes.length; i++) { %>
+              <% post.likes[i].id === userData.id ? isUserlike = true : isUserlike = false; %>
+            <% } %>
+            <form action="/likepost" method="POST">
+              <input type="hidden" name="userId" value="<%- userData.id %>">
+              <input type="hidden" name="postId" value="<%- post.id %>">
+              <% if (isUserlike) { %>
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="like-button"><i class="fas fa-heart"></i> <%- likesCount %></button>
+              <% } else { %>
+                <button type="submit" class="like-button"><i class="far fa-heart"></i> <%- likesCount %></button>
+              <% }; %>
+            </form>
+          <% }; %>
           <p class="post-author">投稿者: <%- post.User.name %></p>
           <% if (isLoggedIn) { %>
             <% if (post.User.id === userData.id) { %>
-            <div class="text-right mt-10">
+            <div class="text-right mt-10 d-flex">
               <a class="button button-primary inline-block" href="/editpost/<%- post.id %>">編集</a>
+              <form action="/deletepost" method="POST">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="postId" value="<%- post.id %>">
+                <button class="button button-danger" type="submit">削除</button>
+              </form>
             </div>
             <% }; %>
           <% }; %>
